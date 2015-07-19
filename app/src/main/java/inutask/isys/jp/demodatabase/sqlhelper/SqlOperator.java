@@ -15,6 +15,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  *
  * TODO:
  *  -SQLInjection対策
+ *  -ライブラリ化 SqlOparatorクラスからDBカラム情報などを受け取って、FeedReaderContactやFeedreaderDbHelperに渡すようにする
  */
 public class SqlOperator {
     private static SQLiteDatabase db;
@@ -25,11 +26,22 @@ public class SqlOperator {
         dbHelper = new FeedReaderDbHelper(context);
     }
 
-    public Cursor searchDB(String[] projection, String selection, String[] selectionArgs, String group, String having, String orderby, String limit) {
+    /**
+     *
+     * @param columns 検索するカラム名
+     * @param selection 検索条件　WHEREに該当 selectionArgsで置換するための?sという文字が使える
+     * @param selectionArgs selectionに書かれた文字と置換する文字を書く(C言語のprintf関数に近い) 置換された文字はString型として扱われる
+     * @param group 列をグループ化して検索する
+     * @param having グループ化したデータを絞り込む
+     * @param orderby 並べ替え テーブル名.列名 ASC or DESC
+     * @param limit 取得数
+     * @return
+     */
+    public Cursor searchDB(String[] columns, String selection, String[] selectionArgs, String group, String having, String orderby, String limit) {
         db = dbHelper.getReadableDatabase();
 
         Cursor cur = db.query(FeedReaderContract.FeedEntry.TABLE_NAME,
-                projection,
+                columns,
                 selection,
                 selectionArgs,
                 group,

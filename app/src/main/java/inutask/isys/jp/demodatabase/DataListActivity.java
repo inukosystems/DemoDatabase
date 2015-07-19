@@ -14,6 +14,9 @@ import android.widget.ListView;
 
 import inutask.isys.jp.demodatabase.sqlhelper.SqlOperator;
 
+/**
+ * データベースのデータを一覧表示するActivity
+ */
 public class DataListActivity extends ActionBarActivity implements OnClickListener{
     Button btn_rtn;
     private static SqlOperator operator;
@@ -37,14 +40,13 @@ public class DataListActivity extends ActionBarActivity implements OnClickListen
 
         ListView listview = (ListView)findViewById(R.id.listView);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-
         adapter.clear();
 
+        // DBから全件取得 + アダプターへ追加
         cursor = operator.searchAllDB();
         cursor.moveToFirst();
         while(cursor.moveToNext()){
             adapter.add(cursor.getString(1));
-            //cursor.moveToNext();
         }
 
         listview.setAdapter(adapter);

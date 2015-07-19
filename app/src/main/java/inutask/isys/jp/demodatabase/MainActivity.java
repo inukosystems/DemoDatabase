@@ -3,9 +3,9 @@ package inutask.isys.jp.demodatabase;
 
 /**
  * TODO:
- *  * EditTextから文字列の取得(CharSequenceはダメみたい？Stringに変換できない) -> findViewById忘れ
- *  * AndroidManifestにintent-filterの追加 -> 済
- *  * DBのclose()周りの処理の確認 -> 済
+ * 　SQLiteの副問合せを実行する
+ * 　queryメソッドだと、副次問合せ用のパラメータが準備されていない
+ * 　直接selectionに記載する
  */
 
 
