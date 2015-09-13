@@ -1,4 +1,4 @@
-package inutask.isys.jp.demodatabase;
+package inutask.isys.jp.demosubquery;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

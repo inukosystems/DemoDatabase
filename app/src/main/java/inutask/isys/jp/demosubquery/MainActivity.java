@@ -1,4 +1,4 @@
-package inutask.isys.jp.demodatabase;
+package inutask.isys.jp.demosubquery;
 
 
 /**
@@ -21,21 +21,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import inutask.isys.jp.demodatabase.sqlhelper.FeedReaderContract;
-import inutask.isys.jp.demodatabase.sqlhelper.SqlOperator;
+import inutask.isys.jp.demosubquery.sqlhelper.ColumnsList;
+import inutask.isys.jp.demosubquery.sqlhelper.TableOperator;
 
 
 public class MainActivity extends ActionBarActivity implements OnClickListener {
-    private static SqlOperator operator;
+    private static TableOperator operator;
     Button btn_insert,btn_edit,btn_delete,btn_get;
     EditText text1,text2;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        operator = new SqlOperator(this);
+        operator = new TableOperator(this, ColumnsList.FeedEntry.TABLE_NAME);
     }
 
     @Override
@@ -66,9 +67,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
             CharSequence text = text1.getText();
 
             ContentValues values = new ContentValues();
-            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE,text.toString());
+            values.put(ColumnsList.FeedEntry.COLUMN_NAME_TITLE,text.toString());
 
-            long result = operator.insertDB(values);
+            long result = operator.insert(values);
             if(result >= 1){
                 Toast.makeText(this, "追加成功", Toast.LENGTH_LONG).show();
             }else{
@@ -84,11 +85,11 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
             CharSequence edited =  text2.getText();
 
             ContentValues values = new ContentValues();
-            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, edited.toString());
+            values.put(ColumnsList.FeedEntry.COLUMN_NAME_TITLE, edited.toString());
 
-            String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE +"='"+origin.toString()+"'";
+            String selection = ColumnsList.FeedEntry.COLUMN_NAME_TITLE +"='"+origin.toString()+"'";
 
-            int result = operator.updateDB(values, selection, null);
+            int result = operator.update(values, selection, null);
             if(result >= 1){
                 Toast.makeText(this, "更新成功", Toast.LENGTH_LONG).show();
             }else{
@@ -102,8 +103,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
             CharSequence text = text1.getText();
 
-            String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE +"='"+text.toString()+"'";
-            int result = operator.deleteDB(selection, null);
+            String selection = ColumnsList.FeedEntry.COLUMN_NAME_TITLE +"='"+text.toString()+"'";
+            int result = operator.delete(selection, null);
 
             if(result >= 1){
                 Toast.makeText(this, "削除成功", Toast.LENGTH_LONG).show();
@@ -116,7 +117,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
         if(v == btn_get){
             // 画面遷移
             Intent intent = new Intent();
-            intent.setClassName("inutask.isys.jp.demodatabase","inutask.isys.jp.demodatabase.DataListActivity");
+            intent.setClassName("inutask.isys.jp.demosubquery","inutask.isys.jp.demosubquery.DataListActivity");
             startActivity(intent);
         }
     }

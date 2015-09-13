@@ -4,7 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="inutask.isys.jp.demodatabase.MainActivity">
+    tools:context="inutask.isys.jp.demosubquery.MainActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -51,5 +51,6 @@
             android:text="GET"
             android:id="@+id/button4"
             android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
 </RelativeLayout>

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "inutask.isys.jp.demodatabase"
+        applicationId "inutask.isys.jp.demosubquery"
         minSdkVersion 19
         targetSdkVersion 22
         versionCode 1
